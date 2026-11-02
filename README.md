@@ -97,6 +97,6 @@ Hasil pengujian
 
 Ruang1 dan ruang2 memakai perangkat fisik, sedangkan ruang3 dan ruang4 menggunakan simulasi. Seluruh skenario T1-T12 telah diuji; bukti tersedia pada dashboard, video, dan screenshot akses dari HP.
 
-Pembagian pekerjaan sementara: Dzikrina menangani rangkaian dan dokumentasi ruang1, Fariz menangani MQTT dan Node-RED ruang2, Kholifiy menangani kontrol lampu ruang3, dan Adam menangani status LWT serta dokumentasi ruang4.
+Pembagian pekerjaan: Fariz menangani integrasi MQTT, Node-RED, dan ruang2; Adam menangani status LWT serta dokumentasi ruang4.
 
 Flow awal masih menggunakan topic `gedung/...` dan payload lampu `ON/OFF`. Flow tersebut sudah disesuaikan menjadi `pens/klp1/...` dengan payload `1/0` agar sama dengan instruksi dosen.
