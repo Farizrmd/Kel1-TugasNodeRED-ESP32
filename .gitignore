@@ -1,0 +1,12 @@
+esp32/esp32_ruang/secrets.h
+.local/
+.build/
+.runtime/
+node_modules/
+__pycache__/
+*.pyc
+*.log
+*_cred.json
+*.mp4
+*.mov
+*.avi

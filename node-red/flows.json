@@ -1,0 +1,902 @@
+[
+  {
+    "id": "30b9a5dbde642976",
+    "type": "tab",
+    "label": "Kel1 MQTT empat ruangan",
+    "disabled": false,
+    "info": "DHT11 nyata pada minimal dua ESP32. Contoh belum membuktikan uji hardware."
+  },
+  {
+    "id": "c6fba6fdbe0ebcf0",
+    "type": "mqtt-broker",
+    "name": "HiveMQ publik Kel1",
+    "broker": "broker.mqttdashboard.com",
+    "port": "1883",
+    "clientid": "",
+    "autoConnect": true,
+    "usetls": false,
+    "protocolVersion": "4",
+    "keepalive": "15",
+    "cleansession": true,
+    "autoUnsubscribe": true,
+    "birthTopic": "",
+    "birthQos": "0",
+    "birthPayload": "",
+    "birthRetain": "false",
+    "closeTopic": "",
+    "closeQos": "0",
+    "closePayload": "",
+    "closeRetain": "false",
+    "willTopic": "",
+    "willQos": "0",
+    "willPayload": "",
+    "willRetain": "false"
+  },
+  {
+    "id": "90455a6bcf8b8a25",
+    "type": "ui_tab",
+    "name": "Gedung",
+    "icon": "dashboard",
+    "disabled": false,
+    "hidden": false
+  },
+  {
+    "id": "ccf6e1facdca9fc6",
+    "type": "ui_group",
+    "name": "Suhu",
+    "tab": "90455a6bcf8b8a25",
+    "order": 1,
+    "disp": true,
+    "width": "12",
+    "collapse": false,
+    "className": ""
+  },
+  {
+    "id": "a76f37e05f18722d",
+    "type": "ui_group",
+    "name": "ruang1",
+    "tab": "90455a6bcf8b8a25",
+    "order": 2,
+    "disp": true,
+    "width": "6",
+    "collapse": false,
+    "className": ""
+  },
+  {
+    "id": "47a5bd078d673127",
+    "type": "ui_group",
+    "name": "ruang2",
+    "tab": "90455a6bcf8b8a25",
+    "order": 3,
+    "disp": true,
+    "width": "6",
+    "collapse": false,
+    "className": ""
+  },
+  {
+    "id": "3ed057be583e4be0",
+    "type": "ui_group",
+    "name": "ruang3",
+    "tab": "90455a6bcf8b8a25",
+    "order": 4,
+    "disp": true,
+    "width": "6",
+    "collapse": false,
+    "className": ""
+  },
+  {
+    "id": "7524f43814d10042",
+    "type": "ui_group",
+    "name": "ruang4",
+    "tab": "90455a6bcf8b8a25",
+    "order": 5,
+    "disp": true,
+    "width": "6",
+    "collapse": false,
+    "className": ""
+  },
+  {
+    "id": "84c1ef43349377d7",
+    "type": "mqtt in",
+    "z": "30b9a5dbde642976",
+    "name": "MQTT temperature empat ruang",
+    "x": 180,
+    "y": 100,
+    "topic": "pens/klp1/+/temperature",
+    "qos": "0",
+    "datatype": "utf8",
+    "broker": "c6fba6fdbe0ebcf0",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "wires": [
+      [
+        "697fd740d5435e09",
+        "cfb3850d8451bcee"
+      ]
+    ]
+  },
+  {
+    "id": "cfb3850d8451bcee",
+    "type": "debug",
+    "z": "30b9a5dbde642976",
+    "name": "DEBUG topic dan payload temperature",
+    "x": 470,
+    "y": 160,
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "wires": []
+  },
+  {
+    "id": "697fd740d5435e09",
+    "type": "function",
+    "z": "30b9a5dbde642976",
+    "name": "Nama ruang untuk seri suhu",
+    "x": 480,
+    "y": 100,
+    "func": "const match = /^pens\\/klp1\\/(ruang[1-4])\\/temperature$/.exec(msg.topic || \"\");\nif (!match || ![\"string\", \"number\"].includes(typeof msg.payload)) return null;\nif (String(msg.payload).trim() === \"\") return null;\nconst value = Number(msg.payload);\nif (!Number.isFinite(value)) return null;\nmsg.topic = match[1];\nmsg.payload = value;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "313c217355264415"
+      ]
+    ]
+  },
+  {
+    "id": "b5d417a08f75a35f",
+    "type": "mqtt in",
+    "z": "30b9a5dbde642976",
+    "name": "MQTT humidity empat ruang",
+    "x": 180,
+    "y": 260,
+    "topic": "pens/klp1/+/humidity",
+    "qos": "0",
+    "datatype": "utf8",
+    "broker": "c6fba6fdbe0ebcf0",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "wires": [
+      [
+        "7fcaed49199b3a54",
+        "d7343da9b4a7f2df"
+      ]
+    ]
+  },
+  {
+    "id": "d7343da9b4a7f2df",
+    "type": "debug",
+    "z": "30b9a5dbde642976",
+    "name": "DEBUG topic dan payload humidity",
+    "x": 470,
+    "y": 320,
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "wires": []
+  },
+  {
+    "id": "7fcaed49199b3a54",
+    "type": "function",
+    "z": "30b9a5dbde642976",
+    "name": "Validasi humidity",
+    "x": 480,
+    "y": 260,
+    "func": "if (!/^pens\\/klp1\\/ruang[1-4]\\/humidity$/.test(msg.topic || \"\")) return null;\nif (![\"string\", \"number\"].includes(typeof msg.payload) || String(msg.payload).trim() === \"\") return null;\nconst value = Number(msg.payload);\nif (!Number.isFinite(value) || value < 0 || value > 100) return null;\nmsg.payload = value;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "69a171207de46c9f"
+      ]
+    ]
+  },
+  {
+    "id": "19edeec37e00c511",
+    "type": "mqtt in",
+    "z": "30b9a5dbde642976",
+    "name": "MQTT status empat ruang",
+    "x": 180,
+    "y": 420,
+    "topic": "pens/klp1/+/status",
+    "qos": "0",
+    "datatype": "utf8",
+    "broker": "c6fba6fdbe0ebcf0",
+    "nl": false,
+    "rap": true,
+    "rh": 0,
+    "inputs": 0,
+    "wires": [
+      [
+        "c637954f5a1779a0",
+        "3a5be468abd1023f"
+      ]
+    ]
+  },
+  {
+    "id": "3a5be468abd1023f",
+    "type": "debug",
+    "z": "30b9a5dbde642976",
+    "name": "DEBUG topic dan payload status",
+    "x": 470,
+    "y": 480,
+    "active": true,
+    "tosidebar": true,
+    "console": false,
+    "tostatus": false,
+    "complete": "true",
+    "targetType": "full",
+    "statusVal": "",
+    "statusType": "auto",
+    "wires": []
+  },
+  {
+    "id": "c637954f5a1779a0",
+    "type": "function",
+    "z": "30b9a5dbde642976",
+    "name": "Validasi status",
+    "x": 480,
+    "y": 420,
+    "func": "if (!/^pens\\/klp1\\/ruang[1-4]\\/status$/.test(msg.topic || \"\")) return null;\nif (msg.payload !== \"online\" && msg.payload !== \"offline\") return null;\nreturn msg;",
+    "outputs": 1,
+    "timeout": 0,
+    "noerr": 0,
+    "initialize": "",
+    "finalize": "",
+    "libs": [],
+    "wires": [
+      [
+        "100292994f42511e"
+      ]
+    ]
+  },
+  {
+    "id": "313c217355264415",
+    "type": "ui_chart",
+    "z": "30b9a5dbde642976",
+    "name": "Suhu empat ruang",
+    "x": 830,
+    "y": 100,
+    "group": "ccf6e1facdca9fc6",
+    "order": 1,
+    "width": "12",
+    "height": "6",
+    "label": "Suhu empat ruangan (°C)",
+    "chartType": "line",
+    "legend": "true",
+    "xformat": "HH:mm:ss",
+    "interpolate": "linear",
+    "nodata": "Menunggu data sensor",
+    "dot": false,
+    "ymin": "",
+    "ymax": "",
+    "removeOlder": "10",
+    "removeOlderPoints": "",
+    "removeOlderUnit": "60",
+    "cutout": 0,
+    "useOneColor": false,
+    "useUTC": false,
+    "colors": [
+      "#2563eb",
+      "#f97316",
+      "#16a34a",
+      "#dc2626",
+      "#7c3aed",
+      "#0891b2",
+      "#64748b",
+      "#be185d",
+      "#a16207"
+    ],
+    "outputs": 1,
+    "useDifferentColor": false,
+    "className": "",
+    "wires": [
+      []
+    ]
+  },
+  {
+    "id": "69a171207de46c9f",
+    "type": "switch",
+    "z": "30b9a5dbde642976",
+    "name": "Pilih ruang humidity",
+    "x": 730,
+    "y": 260,
+    "property": "topic",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "pens/klp1/ruang1/humidity",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "pens/klp1/ruang2/humidity",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "pens/klp1/ruang3/humidity",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "pens/klp1/ruang4/humidity",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 4,
+    "wires": [
+      [
+        "769cbf472e4493a0"
+      ],
+      [
+        "b3d031b020ab4155"
+      ],
+      [
+        "28a0333b27dffaf7"
+      ],
+      [
+        "5fa29da4002edbb9"
+      ]
+    ]
+  },
+  {
+    "id": "100292994f42511e",
+    "type": "switch",
+    "z": "30b9a5dbde642976",
+    "name": "Pilih ruang status",
+    "x": 730,
+    "y": 420,
+    "property": "topic",
+    "propertyType": "msg",
+    "rules": [
+      {
+        "t": "eq",
+        "v": "pens/klp1/ruang1/status",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "pens/klp1/ruang2/status",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "pens/klp1/ruang3/status",
+        "vt": "str"
+      },
+      {
+        "t": "eq",
+        "v": "pens/klp1/ruang4/status",
+        "vt": "str"
+      }
+    ],
+    "checkall": "true",
+    "repair": false,
+    "outputs": 4,
+    "wires": [
+      [
+        "0b10716f1e50ada7"
+      ],
+      [
+        "f9a0cc7a869ed0d9"
+      ],
+      [
+        "3b1bfa84f96ca171"
+      ],
+      [
+        "ceabba4e948427b9"
+      ]
+    ]
+  },
+  {
+    "id": "769cbf472e4493a0",
+    "type": "ui_gauge",
+    "z": "30b9a5dbde642976",
+    "name": "Kelembapan ruang1",
+    "x": 1030,
+    "y": 240,
+    "group": "a76f37e05f18722d",
+    "order": 2,
+    "width": "6",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Kelembapan ruang1",
+    "label": "%",
+    "format": "{{value}}",
+    "min": 0,
+    "max": 100,
+    "colors": [
+      "#16a34a",
+      "#facc15",
+      "#ef4444"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "diff": false,
+    "className": "",
+    "wires": []
+  },
+  {
+    "id": "0b10716f1e50ada7",
+    "type": "ui_text",
+    "z": "30b9a5dbde642976",
+    "name": "Status ruang1",
+    "x": 1030,
+    "y": 480,
+    "group": "a76f37e05f18722d",
+    "order": 1,
+    "width": "6",
+    "height": "1",
+    "label": "Status",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "className": "",
+    "style": false,
+    "font": "",
+    "fontSize": 16,
+    "color": "#111827",
+    "wires": []
+  },
+  {
+    "id": "ace1a2283e4421e6",
+    "type": "ui_switch",
+    "z": "30b9a5dbde642976",
+    "name": "Lampu 1 ruang1",
+    "x": 300,
+    "y": 750,
+    "label": "Lampu 1",
+    "tooltip": "Perintah lampu; periksa LED fisik untuk konfirmasi",
+    "group": "a76f37e05f18722d",
+    "order": 3,
+    "width": "3",
+    "height": "1",
+    "passthru": false,
+    "decouple": "false",
+    "topic": "pens/klp1/ruang1/lamp1",
+    "topicType": "str",
+    "style": "",
+    "onvalue": "1",
+    "onvalueType": "str",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "0",
+    "offvalueType": "str",
+    "officon": "",
+    "offcolor": "",
+    "animate": false,
+    "className": "",
+    "wires": [
+      [
+        "2022c7725e5bacd9"
+      ]
+    ]
+  },
+  {
+    "id": "4e7156f0051ba4c6",
+    "type": "ui_switch",
+    "z": "30b9a5dbde642976",
+    "name": "Lampu 2 ruang1",
+    "x": 580,
+    "y": 750,
+    "label": "Lampu 2",
+    "tooltip": "Perintah lampu; periksa LED fisik untuk konfirmasi",
+    "group": "a76f37e05f18722d",
+    "order": 4,
+    "width": "3",
+    "height": "1",
+    "passthru": false,
+    "decouple": "false",
+    "topic": "pens/klp1/ruang1/lamp2",
+    "topicType": "str",
+    "style": "",
+    "onvalue": "1",
+    "onvalueType": "str",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "0",
+    "offvalueType": "str",
+    "officon": "",
+    "offcolor": "",
+    "animate": false,
+    "className": "",
+    "wires": [
+      [
+        "2022c7725e5bacd9"
+      ]
+    ]
+  },
+  {
+    "id": "b3d031b020ab4155",
+    "type": "ui_gauge",
+    "z": "30b9a5dbde642976",
+    "name": "Kelembapan ruang2",
+    "x": 1030,
+    "y": 290,
+    "group": "47a5bd078d673127",
+    "order": 2,
+    "width": "6",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Kelembapan ruang2",
+    "label": "%",
+    "format": "{{value}}",
+    "min": 0,
+    "max": 100,
+    "colors": [
+      "#16a34a",
+      "#facc15",
+      "#ef4444"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "diff": false,
+    "className": "",
+    "wires": []
+  },
+  {
+    "id": "f9a0cc7a869ed0d9",
+    "type": "ui_text",
+    "z": "30b9a5dbde642976",
+    "name": "Status ruang2",
+    "x": 1030,
+    "y": 530,
+    "group": "47a5bd078d673127",
+    "order": 1,
+    "width": "6",
+    "height": "1",
+    "label": "Status",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "className": "",
+    "style": false,
+    "font": "",
+    "fontSize": 16,
+    "color": "#111827",
+    "wires": []
+  },
+  {
+    "id": "27d216bb20d88304",
+    "type": "ui_switch",
+    "z": "30b9a5dbde642976",
+    "name": "Lampu 1 ruang2",
+    "x": 300,
+    "y": 815,
+    "label": "Lampu 1",
+    "tooltip": "Perintah lampu; periksa LED fisik untuk konfirmasi",
+    "group": "47a5bd078d673127",
+    "order": 3,
+    "width": "3",
+    "height": "1",
+    "passthru": false,
+    "decouple": "false",
+    "topic": "pens/klp1/ruang2/lamp1",
+    "topicType": "str",
+    "style": "",
+    "onvalue": "1",
+    "onvalueType": "str",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "0",
+    "offvalueType": "str",
+    "officon": "",
+    "offcolor": "",
+    "animate": false,
+    "className": "",
+    "wires": [
+      [
+        "2022c7725e5bacd9"
+      ]
+    ]
+  },
+  {
+    "id": "85080859f67e1005",
+    "type": "ui_switch",
+    "z": "30b9a5dbde642976",
+    "name": "Lampu 2 ruang2",
+    "x": 580,
+    "y": 815,
+    "label": "Lampu 2",
+    "tooltip": "Perintah lampu; periksa LED fisik untuk konfirmasi",
+    "group": "47a5bd078d673127",
+    "order": 4,
+    "width": "3",
+    "height": "1",
+    "passthru": false,
+    "decouple": "false",
+    "topic": "pens/klp1/ruang2/lamp2",
+    "topicType": "str",
+    "style": "",
+    "onvalue": "1",
+    "onvalueType": "str",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "0",
+    "offvalueType": "str",
+    "officon": "",
+    "offcolor": "",
+    "animate": false,
+    "className": "",
+    "wires": [
+      [
+        "2022c7725e5bacd9"
+      ]
+    ]
+  },
+  {
+    "id": "28a0333b27dffaf7",
+    "type": "ui_gauge",
+    "z": "30b9a5dbde642976",
+    "name": "Kelembapan ruang3",
+    "x": 1030,
+    "y": 340,
+    "group": "3ed057be583e4be0",
+    "order": 2,
+    "width": "6",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Kelembapan ruang3",
+    "label": "%",
+    "format": "{{value}}",
+    "min": 0,
+    "max": 100,
+    "colors": [
+      "#16a34a",
+      "#facc15",
+      "#ef4444"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "diff": false,
+    "className": "",
+    "wires": []
+  },
+  {
+    "id": "3b1bfa84f96ca171",
+    "type": "ui_text",
+    "z": "30b9a5dbde642976",
+    "name": "Status ruang3",
+    "x": 1030,
+    "y": 580,
+    "group": "3ed057be583e4be0",
+    "order": 1,
+    "width": "6",
+    "height": "1",
+    "label": "Status",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "className": "",
+    "style": false,
+    "font": "",
+    "fontSize": 16,
+    "color": "#111827",
+    "wires": []
+  },
+  {
+    "id": "e1247254fd0cc7b6",
+    "type": "ui_switch",
+    "z": "30b9a5dbde642976",
+    "name": "Lampu 1 ruang3",
+    "x": 300,
+    "y": 880,
+    "label": "Lampu 1",
+    "tooltip": "Perintah lampu; periksa LED fisik untuk konfirmasi",
+    "group": "3ed057be583e4be0",
+    "order": 3,
+    "width": "3",
+    "height": "1",
+    "passthru": false,
+    "decouple": "false",
+    "topic": "pens/klp1/ruang3/lamp1",
+    "topicType": "str",
+    "style": "",
+    "onvalue": "1",
+    "onvalueType": "str",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "0",
+    "offvalueType": "str",
+    "officon": "",
+    "offcolor": "",
+    "animate": false,
+    "className": "",
+    "wires": [
+      [
+        "2022c7725e5bacd9"
+      ]
+    ]
+  },
+  {
+    "id": "afdd0ae6d95ce04f",
+    "type": "ui_switch",
+    "z": "30b9a5dbde642976",
+    "name": "Lampu 2 ruang3",
+    "x": 580,
+    "y": 880,
+    "label": "Lampu 2",
+    "tooltip": "Perintah lampu; periksa LED fisik untuk konfirmasi",
+    "group": "3ed057be583e4be0",
+    "order": 4,
+    "width": "3",
+    "height": "1",
+    "passthru": false,
+    "decouple": "false",
+    "topic": "pens/klp1/ruang3/lamp2",
+    "topicType": "str",
+    "style": "",
+    "onvalue": "1",
+    "onvalueType": "str",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "0",
+    "offvalueType": "str",
+    "officon": "",
+    "offcolor": "",
+    "animate": false,
+    "className": "",
+    "wires": [
+      [
+        "2022c7725e5bacd9"
+      ]
+    ]
+  },
+  {
+    "id": "5fa29da4002edbb9",
+    "type": "ui_gauge",
+    "z": "30b9a5dbde642976",
+    "name": "Kelembapan ruang4",
+    "x": 1030,
+    "y": 390,
+    "group": "7524f43814d10042",
+    "order": 2,
+    "width": "6",
+    "height": "3",
+    "gtype": "gage",
+    "title": "Kelembapan ruang4",
+    "label": "%",
+    "format": "{{value}}",
+    "min": 0,
+    "max": 100,
+    "colors": [
+      "#16a34a",
+      "#facc15",
+      "#ef4444"
+    ],
+    "seg1": "",
+    "seg2": "",
+    "diff": false,
+    "className": "",
+    "wires": []
+  },
+  {
+    "id": "ceabba4e948427b9",
+    "type": "ui_text",
+    "z": "30b9a5dbde642976",
+    "name": "Status ruang4",
+    "x": 1030,
+    "y": 630,
+    "group": "7524f43814d10042",
+    "order": 1,
+    "width": "6",
+    "height": "1",
+    "label": "Status",
+    "format": "{{msg.payload}}",
+    "layout": "row-spread",
+    "className": "",
+    "style": false,
+    "font": "",
+    "fontSize": 16,
+    "color": "#111827",
+    "wires": []
+  },
+  {
+    "id": "1492b6a1addaa882",
+    "type": "ui_switch",
+    "z": "30b9a5dbde642976",
+    "name": "Lampu 1 ruang4",
+    "x": 300,
+    "y": 945,
+    "label": "Lampu 1",
+    "tooltip": "Perintah lampu; periksa LED fisik untuk konfirmasi",
+    "group": "7524f43814d10042",
+    "order": 3,
+    "width": "3",
+    "height": "1",
+    "passthru": false,
+    "decouple": "false",
+    "topic": "pens/klp1/ruang4/lamp1",
+    "topicType": "str",
+    "style": "",
+    "onvalue": "1",
+    "onvalueType": "str",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "0",
+    "offvalueType": "str",
+    "officon": "",
+    "offcolor": "",
+    "animate": false,
+    "className": "",
+    "wires": [
+      [
+        "2022c7725e5bacd9"
+      ]
+    ]
+  },
+  {
+    "id": "a0bd77f024b76272",
+    "type": "ui_switch",
+    "z": "30b9a5dbde642976",
+    "name": "Lampu 2 ruang4",
+    "x": 580,
+    "y": 945,
+    "label": "Lampu 2",
+    "tooltip": "Perintah lampu; periksa LED fisik untuk konfirmasi",
+    "group": "7524f43814d10042",
+    "order": 4,
+    "width": "3",
+    "height": "1",
+    "passthru": false,
+    "decouple": "false",
+    "topic": "pens/klp1/ruang4/lamp2",
+    "topicType": "str",
+    "style": "",
+    "onvalue": "1",
+    "onvalueType": "str",
+    "onicon": "",
+    "oncolor": "",
+    "offvalue": "0",
+    "offvalueType": "str",
+    "officon": "",
+    "offcolor": "",
+    "animate": false,
+    "className": "",
+    "wires": [
+      [
+        "2022c7725e5bacd9"
+      ]
+    ]
+  },
+  {
+    "id": "2022c7725e5bacd9",
+    "type": "mqtt out",
+    "z": "30b9a5dbde642976",
+    "name": "Perintah lampu QoS1 tanpa retain",
+    "x": 900,
+    "y": 840,
+    "topic": "",
+    "qos": "1",
+    "retain": "false",
+    "broker": "c6fba6fdbe0ebcf0",
+    "contentType": "",
+    "userProps": "",
+    "correl": "",
+    "expiry": "",
+    "wires": []
+  }
+]
