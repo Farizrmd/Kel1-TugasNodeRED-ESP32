@@ -2,6 +2,6 @@ Link video Kelompok 1
 
 Video presentasi: belum ditambahkan
 
-Video demo alat: belum ditambahkan
+Video demo alat: https://drive.google.com/file/d/1WcqoYLmbJet25XF7vnzTUILJZRUzmtnv/view?usp=sharing
 
-Video akan diunggah ke YouTube atau Google Drive setelah pengujian alat selesai. File video tidak dimasukkan langsung ke repositori GitHub.
+File video tidak dimasukkan langsung ke repositori GitHub agar ukuran repositori tetap kecil.

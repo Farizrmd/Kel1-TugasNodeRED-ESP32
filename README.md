@@ -6,7 +6,7 @@ Instruksi tugas: https://hackmd.io/@OkPpYLjoRcu8iYCOtxZkcA/r1vsD7xaMe
 
 Video presentasi: belum ditambahkan
 
-Video demo alat: belum ditambahkan
+Video demo alat: [Google Drive](https://drive.google.com/file/d/1WcqoYLmbJet25XF7vnzTUILJZRUzmtnv/view?usp=sharing)
 
 Anggota kelompok
 
