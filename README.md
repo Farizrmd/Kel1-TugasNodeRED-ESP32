@@ -38,7 +38,9 @@ Perangkat yang dipakai pada setiap ruangan
 | DHT11 VCC | 3,3 V |
 | DHT11 GND | GND |
 
-Foto rangkaian akan dimasukkan ke folder `docs/images` setelah pengujian alat.
+Foto rangkaian saat pengujian:
+
+![Rangkaian ESP32](docs/images/rangkaian.jpg)
 
 Broker dan topic
 
@@ -54,6 +56,14 @@ Broker yang dipakai adalah `broker.mqttdashboard.com` port `1883`. Prefix MQTT k
 
 Dashboard mengikuti susunan tugas dosen: satu tab `Gedung`, satu group `Suhu`, dan satu group untuk setiap ruangan. Di dalamnya terdapat satu chart suhu empat garis, empat gauge kelembapan, delapan saklar lampu, dan empat indikator status.
 
+![Flow Node-RED](docs/images/flow.png)
+
+![Dashboard Node-RED](docs/images/dashboard.png)
+
+Laporan: [docs/laporan.pdf](docs/laporan.pdf)
+
+Materi presentasi: [ppt-KEL1.pptx](ppt-KEL1.pptx)
+
 Cara menjalankan
 
 1. Pasang library `EspMQTTClient`, `PubSubClient`, `DHT sensor library`, dan `Adafruit Unified Sensor` di Arduino IDE.
@@ -66,20 +76,20 @@ Hasil pengujian
 
 | Uji | Hasil |
 | --- | --- |
-| T1 Koneksi ESP32 | belum diuji |
-| T2 Data empat ruangan | belum diuji |
-| T3 Chart empat garis | belum diuji |
-| T4 Perubahan sensor per ruangan | belum diuji |
-| T5 Lampu tepat sasaran | belum diuji |
-| T6 Mematikan lampu | belum diuji |
+| T1 Koneksi ESP32 | belum ada bukti Serial Monitor |
+| T2 Data empat ruangan | terlihat pada dashboard |
+| T3 Chart empat garis | terlihat pada dashboard |
+| T4 Perubahan sensor per ruangan | terlihat sebagian pada video |
+| T5 Lampu tepat sasaran | terlihat sebagian pada video |
+| T6 Mematikan lampu | terlihat sebagian pada video |
 | T7 Payload selain `1` dan `0` diabaikan | belum diuji |
-| T8 Status semua ruangan online | belum diuji |
+| T8 Status semua ruangan online | terlihat pada dashboard |
 | T9 Last Will offline | belum diuji |
 | T10 Status retained | belum diuji |
 | T11 Reconnect otomatis | belum diuji |
 | T12 Dashboard diakses dari HP | belum diuji |
 
-Saat ini belum ada ruangan yang ditetapkan sebagai simulasi. Hasil pada tabel akan diperbarui setelah pengujian langsung menggunakan alat kelompok.
+Ruang1 dan ruang2 memakai perangkat fisik, sedangkan ruang3 dan ruang4 menggunakan simulasi. Hasil yang belum mempunyai bukti akan diperbarui setelah pengujian lanjutan.
 
 Pembagian pekerjaan sementara: Dzikrina menangani rangkaian dan dokumentasi ruang1, Fariz menangani MQTT dan Node-RED ruang2, Kholifiy menangani kontrol lampu ruang3, dan Adam menangani status LWT serta dokumentasi ruang4.
 
